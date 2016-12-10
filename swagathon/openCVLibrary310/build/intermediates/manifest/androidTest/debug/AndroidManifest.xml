@@ -3,7 +3,7 @@
     package="org.opencv.test" >
 
     <uses-sdk
-        android:minSdkVersion="8"
+        android:minSdkVersion="21"
         android:targetSdkVersion="21" />
 
     <instrumentation
@@ -12,6 +12,8 @@
         android:handleProfiling="false"
         android:label="Tests for org.opencv.test"
         android:targetPackage="org.opencv.test" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application>
         <uses-library android:name="android.test.runner" />
