@@ -17,26 +17,25 @@
         android:id="@+id/java_camera_view"
         />
 
-    <TextView
-        android:text="SCORE: 0"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="41dp"
-        android:id="@+id/textView"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display2"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:textColor="#BFf15757"/>
-
     <Button
         android:text="SCAN"
         android:layout_width="100dp"
         android:layout_height="match_parent"
         android:background="#A6000000"
-        android:textColor="#80f15757"
+        android:textColor="#FF00BB"
         android:id="@+id/button"
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="41dp"
+        android:id="@+id/textView"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display2"
+        android:textColor="#FF00BB"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

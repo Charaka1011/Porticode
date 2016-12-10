@@ -1,10 +1,14 @@
 package com.example.carlo.swagathon;
 
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.SurfaceView;
+import android.view.View;
 import android.view.Window;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
@@ -59,6 +63,23 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+
+        //costum font
+        final TextView tx = (TextView)findViewById(R.id.textView);
+        Typeface custom_font = Typeface.createFromAsset(getAssets(),  "ARCADECLASSIC.TTF");
+        tx.setTypeface(custom_font);
+
+        // Add a listener to the Capture button
+        Button captureButton = (Button) findViewById(R.id.button);
+        captureButton.setTypeface(custom_font);
+        captureButton.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        tx.setText("Coolness: 69");
+                    }
+                }
+        );
     }
 
     @Override
