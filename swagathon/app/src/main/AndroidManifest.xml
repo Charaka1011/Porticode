@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.carlo.swagathon">
+    <uses-permission android:name="android.permission.CAMERA"/>
+
+    <uses-feature android:name="android.hardware.camera2."/>
+    <uses-feature android:name="android.hardware.camera2.autofocus"/>
+    <uses-feature android:name="android.hardware.camera2.front.autofocus"/>
 
     <application
         android:allowBackup="true"
