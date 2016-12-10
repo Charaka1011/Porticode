@@ -10,15 +10,15 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.carlo.swagathon.MainActivity">
 
+
     <org.opencv.android.JavaCameraView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         android:id="@+id/java_camera_view"
         />
 
-    <ImageButton
-        android:id="@+id/imageButton"
-        android:src="@drawable/abc"
+    <Button
+        android:id="@+id/button"
         android:layout_width="match_parent"
         android:background="@null"
         android:layout_height="128dp"
