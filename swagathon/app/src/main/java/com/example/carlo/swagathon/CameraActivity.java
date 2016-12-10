@@ -10,23 +10,23 @@ import android.widget.FrameLayout;
  */
 
 public class CameraActivity extends Activity {
-
-    private Camera myCamera;
-    private MainActivity mPreview;
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
-
-        // Create an instance of Camera
-        myCamera = getCameraInstance();
-
-        // Create our Preview view and set it as the content of our activity.
-        mPreview = new MainActivity(this, myCamera);
-        FrameLayout preview = (FrameLayout) findViewById(R.id.camera_preview);
-        preview.addView(mPreview);
-    }
+//
+//    private Camera myCamera;
+//    private MainActivity mPreview;
+//
+//    @Override
+//    public void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.main);
+//
+//        // Create an instance of Camera
+//        myCamera = getCameraInstance();
+//
+//        // Create our Preview view and set it as the content of our activity.
+//        mPreview = new MainActivity(this, myCamera);
+//        FrameLayout preview = (FrameLayout) findViewById(R.id.camera_preview);
+//        preview.addView(mPreview);
+//    }
 
 
 }

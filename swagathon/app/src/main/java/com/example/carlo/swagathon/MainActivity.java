@@ -1,7 +1,9 @@
 package com.example.carlo.swagathon;
 
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.Uri;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.SurfaceView;
@@ -26,9 +28,13 @@ import org.opencv.core.Mat;
 import org.opencv.android.OpenCVLoader;
 import org.opencv.imgproc.Imgproc;
 
+import static java.lang.Thread.sleep;
+
+
 public class MainActivity extends AppCompatActivity implements CameraBridgeViewBase.CvCameraViewListener2 {
+    boolean buttonClick = false;
     JavaCameraView myCamera;
-    Mat mRgba, imgGrey, imgCanny;
+    Mat mRgba, imgGrey, imgCanny, threshed;
     BaseLoaderCallback mLoaderCallBack = new BaseLoaderCallback(this) {
         @Override
         public void onManagerConnected(int status) {
@@ -70,12 +76,29 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
         tx.setTypeface(custom_font);
 
         // Add a listener to the Capture button
-        Button captureButton = (Button) findViewById(R.id.button);
+        final Button captureButton = (Button) findViewById(R.id.button);
         captureButton.setTypeface(custom_font);
         captureButton.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        if(!buttonClick){
+                            buttonClick = true;
+                            //captureButton.setText("RESET");
+                            final Handler handler = new Handler();
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    // Do something after 5s = 5000ms
+                                    buttonClick = false;
+                                }
+                            }, 200);
+
+
+                        }else{
+                            buttonClick = false;
+                            captureButton.setText("SCAN");
+                        }
                         tx.setText("Coolness: 69");
                     }
                 }
@@ -110,6 +133,7 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
 
     @Override
     public void onCameraViewStarted(int width, int height) {
+        threshed = new Mat(height,width, CvType.CV_8UC1);
         mRgba = new Mat(height, width, CvType.CV_8UC4);
         imgGrey = new Mat(height, width, CvType.CV_8UC1);
         imgCanny = new Mat(height, width, CvType.CV_8UC1);
@@ -126,9 +150,18 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
 //        Imgproc.cvtColor(mRgba, imgGrey, Imgproc.COLOR_RGB2GRAY);
 //        Imgproc.Canny(imgGrey, imgCanny, 100, 150);
 //        return imgCanny;
-        return mRgba;
+        if(buttonClick) {
+            return procCameraFrame(mRgba);
+        }else{
+            return mRgba;
+        }
     }
 
+    public Mat procCameraFrame(Mat Rgba){
+        Imgproc.cvtColor(Rgba, imgGrey, Imgproc.COLOR_RGB2GRAY);
+        Imgproc.adaptiveThreshold(imgGrey, threshed, 255, Imgproc.ADAPTIVE_THRESH_MEAN_C, Imgproc.THRESH_BINARY, 75, 5);
+        return threshed;
+    }
 
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
