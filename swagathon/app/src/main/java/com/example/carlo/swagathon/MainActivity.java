@@ -102,9 +102,10 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
     @Override
     public Mat onCameraFrame(CameraBridgeViewBase.CvCameraViewFrame inputFrame) {
         mRgba = inputFrame.rgba();
-        Imgproc.cvtColor(mRgba, imgGrey, Imgproc.COLOR_RGB2GRAY);
-        Imgproc.Canny(imgGrey, imgCanny, 100, 150);
-        return imgCanny;
+//        Imgproc.cvtColor(mRgba, imgGrey, Imgproc.COLOR_RGB2GRAY);
+//        Imgproc.Canny(imgGrey, imgCanny, 100, 150);
+//        return imgCanny;
+        return mRgba;
     }
 
 
