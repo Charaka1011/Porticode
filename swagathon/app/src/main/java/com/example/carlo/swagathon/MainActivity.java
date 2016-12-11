@@ -1,5 +1,6 @@
 package com.example.carlo.swagathon;
 
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.Uri;
@@ -23,16 +24,21 @@ import org.opencv.android.CameraBridgeViewBase;
 import org.opencv.android.JavaCameraView;
 import org.opencv.android.LoaderCallbackInterface;
 import org.opencv.android.OpenCVLoader;
+import org.opencv.android.Utils;
+import org.opencv.core.Core;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import org.opencv.android.OpenCVLoader;
 import org.opencv.imgproc.Imgproc;
 
+import static android.R.attr.radius;
 import static java.lang.Thread.sleep;
+import static org.opencv.imgproc.Imgproc.threshold;
 
 
 public class MainActivity extends AppCompatActivity implements CameraBridgeViewBase.CvCameraViewListener2 {
     boolean buttonClick = false;
+    int score = 0;             
     JavaCameraView myCamera;
     Mat mRgba, imgGrey, imgCanny, threshed;
     BaseLoaderCallback mLoaderCallBack = new BaseLoaderCallback(this) {
@@ -84,6 +90,9 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
                     public void onClick(View v) {
                         if(!buttonClick){
                             buttonClick = true;
+                            Mat m = new Mat();
+                            Core.extractChannel(imgCanny, m, 0);
+                            score = Core.countNonZero(m);
                             //captureButton.setText("RESET");
                             final Handler handler = new Handler();
                             handler.postDelayed(new Runnable() {
@@ -99,7 +108,7 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
                             buttonClick = false;
                             captureButton.setText("SCAN");
                         }
-                        tx.setText("Coolness: 69");
+                        tx.setText("Coolness:" + score);
                     }
                 }
         );
@@ -159,8 +168,9 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
 
     public Mat procCameraFrame(Mat Rgba){
         Imgproc.cvtColor(Rgba, imgGrey, Imgproc.COLOR_RGB2GRAY);
-        Imgproc.adaptiveThreshold(imgGrey, threshed, 255, Imgproc.ADAPTIVE_THRESH_MEAN_C, Imgproc.THRESH_BINARY, 75, 5);
-        return threshed;
+        Imgproc.Canny(imgGrey, imgCanny, 100, 150);
+//        Imgproc.adaptiveThreshold(imgGrey, threshed, 255, Imgproc.ADAPTIVE_THRESH_MEAN_C, Imgproc.THRESH_BINARY, 75, 5);
+        return imgCanny;
     }
 
     /**
@@ -198,5 +208,6 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
         AppIndex.AppIndexApi.end(client, getIndexApiAction());
         client.disconnect();
     }
+
 }
 
