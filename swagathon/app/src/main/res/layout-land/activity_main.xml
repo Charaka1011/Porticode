@@ -70,17 +70,20 @@
                 android:layout_weight="1"
                 android:scaleType="fitXY" />
 
-            <ImageButton
+            <RelativeLayout
                 android:layout_width="100dp"
-                android:layout_height="match_parent"
-                app:srcCompat="@drawable/cameraicon"
-                android:background="#59000000"
-                android:id="@+id/imageButton"
-                android:adjustViewBounds="true"
-                android:padding="20dp"
-                android:scaleType="fitCenter"/>
+                android:layout_height="match_parent">
 
-
+                <ImageButton
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    app:srcCompat="@drawable/cameraicon"
+                    android:background="#59000000"
+                    android:id="@+id/imageButton"
+                    android:adjustViewBounds="true"
+                    android:padding="20dp"
+                    android:scaleType="fitCenter"/>
+            </RelativeLayout>
 
         </LinearLayout>
     </LinearLayout>
@@ -101,6 +104,8 @@
             style="@style/Widget.AppCompat.Button.Colored"
             android:background="#59000000" />
     </LinearLayout>
+
+
 
 </RelativeLayout>
 
