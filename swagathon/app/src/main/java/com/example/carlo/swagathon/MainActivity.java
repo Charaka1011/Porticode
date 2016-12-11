@@ -9,6 +9,7 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.google.android.gms.appindexing.Action;
@@ -74,8 +75,7 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
         tx.setTypeface(custom_font);
 
         // Add a listener to the Capture button
-        final Button captureButton = (Button) findViewById(R.id.button);
-        captureButton.setTypeface(custom_font);
+        final ImageButton captureButton = (ImageButton) findViewById(R.id.imageButton);
         captureButton.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
@@ -101,9 +101,8 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
 
                         }else{
                             buttonClick = false;
-                            captureButton.setText("SCAN");
                         }
-                        tx.setText("Coolness:" + score);
+                        tx.setText("" + score);
                     }
                 }
         );
