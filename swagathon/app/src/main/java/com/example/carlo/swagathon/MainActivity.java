@@ -26,6 +26,7 @@ import org.opencv.android.OpenCVLoader;
 import org.opencv.core.Core;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
+import org.opencv.core.Rect;
 import org.opencv.imgproc.Imgproc;
 
 
@@ -33,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
     boolean buttonClick = false;
     int score = 0;
     JavaCameraView myCamera;
+    Rect roi = new Rect(310, 45, 1300, 1035);
     Mat mRgba, imgGrey, imgCanny, threshed;
     BaseLoaderCallback mLoaderCallBack = new BaseLoaderCallback(this) {
         @Override
@@ -94,8 +96,8 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
                             for(int i=0;i<10;i++) {
                                 score = score+(Core.countNonZero(m) / 10);
                             }
-                            score=score/100;
-                            if(score <= 200){
+                            score=(score/100)+100;
+                            if(score <= 150){
                                 score = 0;
                             }
                             //captureButton.setText("RESET");
@@ -174,10 +176,11 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
 //        Imgproc.Canny(imgGrey, imgCanny, 100, 150);
 //        return imgCanny;
         if(buttonClick) {
-            return procCameraFrame(mRgba);
-        }else{
-            return mRgba;
+            Mat sub = mRgba.submat(roi);
+            sub = procCameraFrame(sub);
+            sub.copyTo(mRgba.submat(roi));
         }
+            return mRgba;
     }
 
     public Mat procCameraFrame(Mat Rgba){
