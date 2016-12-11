@@ -55,12 +55,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <Button
+            <TextView
                 android:layout_width="100dp"
                 android:layout_height="fill_parent"
-                android:id="@+id/button3"
-                style="@style/Widget.AppCompat.Button.Colored"
-                android:background="#59000000" />
+                android:background="#59000000"
+                android:id="@+id/textView3"
+                android:textSize="36sp" />
 
             <ImageView
                 app:srcCompat="@drawable/rimjob"
