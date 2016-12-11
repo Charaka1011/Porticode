@@ -33,6 +33,7 @@ import org.opencv.imgproc.Imgproc;
 public class MainActivity extends AppCompatActivity implements CameraBridgeViewBase.CvCameraViewListener2 {
     boolean buttonClick = false;
     int score = 0;
+    boolean animation = false;
     JavaCameraView myCamera;
     Rect roi = new Rect(310, 45, 1300, 1035);
     Mat mRgba, imgGrey, imgCanny, threshed;
@@ -62,6 +63,7 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
@@ -89,6 +91,17 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
                     @Override
                     public void onClick(View v) {
                         if(!buttonClick){
+                            animation = true;
+                            final Handler handler = new Handler();
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    // Do something after 5s = 5000ms
+
+                                    animation = false;
+
+                                }
+                            }, 500);
                             buttonClick = true;
                             Mat m = new Mat();
                             Core.extractChannel(imgCanny, m, 0);
@@ -100,15 +113,9 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
                             if(score <= 150){
                                 score = 0;
                             }
+                            buttonClick = false;
                             //captureButton.setText("RESET");
-                            final Handler handler = new Handler();
-                            handler.postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    // Do something after 5s = 5000ms
-                                    buttonClick = false;
-                                }
-                            }, 200);
+
 
 
                         }else{
@@ -175,12 +182,19 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
 //        Imgproc.cvtColor(mRgba, imgGrey, Imgproc.COLOR_RGB2GRAY);
 //        Imgproc.Canny(imgGrey, imgCanny, 100, 150);
 //        return imgCanny;
-        if(buttonClick) {
+        if(animation){
+            Imgproc.cvtColor(mRgba, imgGrey, Imgproc.COLOR_RGB2GRAY);
+            Imgproc.Canny(imgGrey, imgCanny, 100, 150);
+            return imgCanny;
+        }
+        else if(buttonClick) {
             Mat sub = mRgba.submat(roi);
             sub = procCameraFrame(sub);
             sub.copyTo(mRgba.submat(roi));
-        }
             return mRgba;
+        }else {
+            return mRgba;
+        }
     }
 
     public Mat procCameraFrame(Mat Rgba){
