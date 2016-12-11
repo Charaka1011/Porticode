@@ -63,10 +63,12 @@
                 android:background="#59000000" />
 
             <ImageView
+                app:srcCompat="@drawable/rimjob"
                 android:id="@+id/picv"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:scaleType="fitXY" />
 
             <ImageButton
                 android:layout_width="100dp"
@@ -101,3 +103,4 @@
     </LinearLayout>
 
 </RelativeLayout>
+
