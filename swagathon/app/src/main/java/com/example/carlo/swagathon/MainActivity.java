@@ -74,6 +74,11 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
         Typeface custom_font = Typeface.createFromAsset(getAssets(),  "ARCADECLASSIC.TTF");
         tx.setTypeface(custom_font);
 
+        //costum font
+        final TextView tx2 = (TextView)findViewById(R.id.textView2);
+        tx2.setTypeface(custom_font);
+        final String chakra_the_magician = "";
+
         // Add a listener to the Capture button
         final ImageButton captureButton = (ImageButton) findViewById(R.id.imageButton);
         captureButton.setOnClickListener(
@@ -84,8 +89,8 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
                             buttonClick = true;
                             Mat m = new Mat();
                             Core.extractChannel(imgCanny, m, 0);
-                            score = Core.countNonZero(m);
-                            if(score <= 2000){
+                            score = Core.countNonZero(m)/10;
+                            if(score <= 200){
                                 score = 0;
                             }
                             //captureButton.setText("RESET");
@@ -103,6 +108,8 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
                             buttonClick = false;
                         }
                         tx.setText("" + score);
+
+                        tx2.setText(chakra_the_magician);
                     }
                 }
         );
