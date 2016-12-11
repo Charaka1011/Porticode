@@ -36,7 +36,8 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Display2"
         android:textColor="#FF00BB"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:text="Coolness: 0" />
 
 
 </RelativeLayout>

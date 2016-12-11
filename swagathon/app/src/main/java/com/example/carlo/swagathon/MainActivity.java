@@ -1,7 +1,5 @@
 package com.example.carlo.swagathon;
 
-import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Handler;
@@ -24,21 +22,15 @@ import org.opencv.android.CameraBridgeViewBase;
 import org.opencv.android.JavaCameraView;
 import org.opencv.android.LoaderCallbackInterface;
 import org.opencv.android.OpenCVLoader;
-import org.opencv.android.Utils;
 import org.opencv.core.Core;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
-import org.opencv.android.OpenCVLoader;
 import org.opencv.imgproc.Imgproc;
-
-import static android.R.attr.radius;
-import static java.lang.Thread.sleep;
-import static org.opencv.imgproc.Imgproc.threshold;
 
 
 public class MainActivity extends AppCompatActivity implements CameraBridgeViewBase.CvCameraViewListener2 {
     boolean buttonClick = false;
-    int score = 0;             
+    int score = 0;
     JavaCameraView myCamera;
     Mat mRgba, imgGrey, imgCanny, threshed;
     BaseLoaderCallback mLoaderCallBack = new BaseLoaderCallback(this) {
@@ -93,6 +85,9 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
                             Mat m = new Mat();
                             Core.extractChannel(imgCanny, m, 0);
                             score = Core.countNonZero(m);
+                            if(score <= 2000){
+                                score = 0;
+                            }
                             //captureButton.setText("RESET");
                             final Handler handler = new Handler();
                             handler.postDelayed(new Runnable() {
