@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
     private GoogleApiClient client;
+    String chakra_the_magician = "";
 
 
     @Override
@@ -77,7 +78,7 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
         //costum font
         final TextView tx2 = (TextView)findViewById(R.id.textView2);
         tx2.setTypeface(custom_font);
-        final String chakra_the_magician = "";
+
 
         // Add a listener to the Capture button
         final ImageButton captureButton = (ImageButton) findViewById(R.id.imageButton);
@@ -89,7 +90,11 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
                             buttonClick = true;
                             Mat m = new Mat();
                             Core.extractChannel(imgCanny, m, 0);
-                            score = Core.countNonZero(m)/10;
+                            score = 0;
+                            for(int i=0;i<10;i++) {
+                                score = score+(Core.countNonZero(m) / 10);
+                            }
+                            score=score/100;
                             if(score <= 200){
                                 score = 0;
                             }
@@ -108,7 +113,15 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
                             buttonClick = false;
                         }
                         tx.setText("" + score);
-
+                        if (score<200){score=0;chakra_the_magician="You  are  not  even  trying.";}
+                        if ((score>=200)&&(score<300)){chakra_the_magician="Weak.";}
+                        if ((score>=300)&&(score<400)){chakra_the_magician="Meh.  Could  be  better.";}
+                        if ((score>=400)&&(score<500)){chakra_the_magician="Get  some  more  stickers!";}
+                        if ((score>=500)&&(score<600)){chakra_the_magician="You  are  doing  fine!";}
+                        if ((score>=600)&&(score<700)){chakra_the_magician="Better  than  average!";}
+                        if ((score>=700)&&(score<800)){chakra_the_magician="You  are  close  to  a  unique  design!";}
+                        if ((score>=800)&&(score<900)){chakra_the_magician="Amazing!  You  are  rocking  your  laptop!";}
+                        if (score>=900){chakra_the_magician="You  are  probably  cheating...";}
                         tx2.setText(chakra_the_magician);
                     }
                 }
