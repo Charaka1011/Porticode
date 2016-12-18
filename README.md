@@ -1,4 +1,5 @@
 # Porticode
-Hackathon blah blah blah
-Hello
-Abhi lol
+To test the application you can: 
+  - download the project and run it through Android Studio
+  - only download the .apk file
+
